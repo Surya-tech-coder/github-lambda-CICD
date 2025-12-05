@@ -1,0 +1,22 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      python: 3.12  # UPDATED: Changed from 3.8 to 3.12
+    commands:
+      - echo "Installing dependencies..."
+      - pip install -r requirements.txt -t lib
+  build:
+    commands:
+      - echo "Zipping deployment package..."
+      - cd lib
+      - zip -r9 ../deployment_package.zip .
+      - cd ..
+      - zip -g deployment_package.zip lambda_function.py
+  post_build:
+    commands:
+      - echo "Updating Lambda function..."
+      # Make sure to replace the function name below with your actual Lambda function name
+      - aws lambda update-function-code --function-name YOUR_LAMBDA_FUNCTION_NAME_HERE --zip-file fileb://deployment_package.zip
+      - echo "DONE!!"
