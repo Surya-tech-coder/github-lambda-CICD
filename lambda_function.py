@@ -13,9 +13,9 @@ def lambda_handler(event, context):
     
     # Print the DataFrame to the logs
     print(df)
-    print("Done x1.1")
+    print("Done x1.1 sidd")
     
     return {
         'statusCode': 200,
-        'body': json.dumps('Hello from Lambda! super')
+        'body': json.dumps('Hello from Lambda! super siddart')
     }
