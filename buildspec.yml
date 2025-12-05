@@ -2,10 +2,10 @@ version: 0.2
 
 phases:
   install:
-    runtime-versions:
-      python: 3.12  # UPDATED: Changed from 3.8 to 3.12
+    # 'runtime-versions' is removed because Lambda compute uses the pre-selected image environment.
     commands:
       - echo "Installing dependencies..."
+      # Install dependencies into the local 'lib' folder
       - pip install -r requirements.txt -t lib
   build:
     commands:
@@ -17,6 +17,6 @@ phases:
   post_build:
     commands:
       - echo "Updating Lambda function..."
-      # Make sure to replace the function name below with your actual Lambda function name
-      - aws lambda update-function-code --function-name YOUR_LAMBDA_FUNCTION_NAME_HERE --zip-file fileb://deployment_package.zip
+      # Updates the code for your specific function
+      - aws lambda update-function-code --function-name surya-poc-1 --zip-file fileb://deployment_package.zip
       - echo "DONE!!"
